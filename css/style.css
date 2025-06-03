@@ -127,7 +127,6 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-  background-image: url("../images/top-banner-bckg.jpg");
   background-position: center;
   background-size: cover; }
   .fh5co-top-banner::after {
@@ -832,6 +831,58 @@
   @media (max-width: 1250px) {
     .footer-contact-form {
       width: 100%; } }
+
+      /* Short Stories Section */
+.fh5co-short-stories {
+  background-color: #f9f9f9; /* Light background to match the site's theme */
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.fh5co-short-stories .site-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fh5co-short-stories h2.universal-h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+}
+
+.fh5co-short-stories h2.universal-h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #ff6f61; /* Accent color */
+  margin: 10px auto 0;
+}
+
+.short-stories-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.short-stories-list li {
+  margin: 15px 0;
+}
+
+.short-stories-list a {
+  font-size: 1.2rem;
+  color: #ff6f61; /* Accent color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.short-stories-list a:hover {
+  color: #333; /* Darker color on hover */
+  text-decoration: underline;
+}
 
 .footer-bottom {
   padding: 25px 0;
