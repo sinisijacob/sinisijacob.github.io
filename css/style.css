@@ -127,8 +127,7 @@
   position: relative;
   display: flex;
   align-items: flex-end;
-  background-position: center;
-  background-size: cover; }
+  background-position: center;}
   .fh5co-top-banner::after {
     content: '';
     position: absolute;
@@ -141,18 +140,9 @@
   .fh5co-top-banner .site-container {
     position: relative;
     z-index: 1; }
-  @media (max-width: 1600px) {
-    .fh5co-top-banner {
-      padding-top: 180px; } }
-  @media (max-width: 1250px) {
-    .fh5co-top-banner {
-      padding-top: 130px; } }
-  @media (max-width: 520px) {
-    .fh5co-top-banner {
-      padding-top: 105px; } }
   @media (min-width: 1600px) {
     .fh5co-top-banner {
-      min-height: 100vh; } }
+      padding-top: 100px; } }
 
 .top-banner__inner {
   display: flex;
@@ -837,6 +827,7 @@
   background-color: #f9f9f9; /* Light background to match the site's theme */
   padding: 50px 20px;
   text-align: center;
+  margin-top: 100px; /* Add spacing to position it just below the navigation */
 }
 
 .fh5co-short-stories .site-container {
@@ -953,3 +944,21 @@
       .footer-bottom-inner p {
         font-size: 14px;
         margin-bottom: 20px; } }
+
+/* Ensure the body and html take up the full height of the viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make the main content area grow to fill the available space */
+body > *:not(.site-footer) {
+    flex: 1;
+}
+
+/* Ensure the footer stays at the bottom */
+.site-footer {
+    margin-top: auto;
+}
