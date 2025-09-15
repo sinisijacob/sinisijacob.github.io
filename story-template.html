@@ -107,17 +107,79 @@
         $(document).ready(function() {
             const urlParams = new URLSearchParams(window.location.search);
             const storyFile = urlParams.get('story');
+            const fileType = urlParams.get('type') || 'txt'; // Default to txt if no type specified
 
-            console.log('Story file:', storyFile); // Debugging line
+            console.log('Story file:', storyFile, 'Type:', fileType); // Debugging line
+            
             if (storyFile) {
-                $.get(`stories/${storyFile}.txt`, function(data) {
-                    console.log('Story data:', data); // Debugging line
-                    const storyParts = data.split('\n');
-                    $('#story-title').text(storyParts[0]); // Assuming the first line is the title
-                    $('#story-text').text(storyParts.slice(1).join('\n')); // The rest is the story text
-                });
+                const fileExtension = fileType === 'html' ? '.html' : '.txt';
+                const filePath = `stories/${storyFile}${fileExtension}`;
+                
+                $.get(filePath)
+                    .done(function(data) {
+                        console.log('Story data loaded successfully'); // Debugging line
+                        
+                        if (fileType === 'html') {
+                            // For HTML files, parse the content and preserve HTML structure
+                            const tempDiv = $('<div>').html(data);
+                            const title = tempDiv.find('h1, .title').first().text() || 
+                                         tempDiv.find('title').text() || 
+                                         storyFile.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                            
+                            $('#story-title').text(title);
+                            
+                            // Remove the title from content and set the HTML
+                            tempDiv.find('h1, .title, title').first().remove();
+                            $('#story-text').html(tempDiv.html());
+                            
+                            // Add a class to indicate HTML content for styling
+                            $('#story-text').addClass('html-content');
+                        } else {
+                            // For text files, handle as before but with better title extraction
+                            const storyParts = data.split('\n');
+                            const title = storyParts[0].trim() || 
+                                         storyFile.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                            
+                            $('#story-title').text(title);
+                            $('#story-text').text(storyParts.slice(1).join('\n'));
+                            
+                            // Add a class to indicate text content for styling
+                            $('#story-text').addClass('text-content');
+                        }
+                    })
+                    .fail(function() {
+                        console.log('Failed to load story, trying alternate file type');
+                        // If the requested file type fails, try the other type
+                        const alternateExtension = fileType === 'html' ? '.txt' : '.html';
+                        const alternatePath = `stories/${storyFile}${alternateExtension}`;
+                        
+                        $.get(alternatePath)
+                            .done(function(data) {
+                                const isAlternateHtml = alternateExtension === '.html';
+                                
+                                if (isAlternateHtml) {
+                                    const tempDiv = $('<div>').html(data);
+                                    const title = tempDiv.find('h1, .title').first().text() || 
+                                                 storyFile.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                                    $('#story-title').text(title);
+                                    tempDiv.find('h1, .title, title').first().remove();
+                                    $('#story-text').html(tempDiv.html()).addClass('html-content');
+                                } else {
+                                    const storyParts = data.split('\n');
+                                    const title = storyParts[0].trim() || 
+                                                 storyFile.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                                    $('#story-title').text(title);
+                                    $('#story-text').text(storyParts.slice(1).join('\n')).addClass('text-content');
+                                }
+                            })
+                            .fail(function() {
+                                $('#story-title').text('Story Not Found');
+                                $('#story-text').text('The requested story could not be found.');
+                            });
+                    });
             } else {
-                $('#story-text').text('No story found.');
+                $('#story-title').text('No Story Selected');
+                $('#story-text').text('No story was specified.');
             }
         });
     </script>
