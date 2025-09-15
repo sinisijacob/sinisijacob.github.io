@@ -825,9 +825,10 @@
       /* Short Stories Section */
 .fh5co-short-stories {
   background-color: #f9f9f9; /* Light background to match the site's theme */
-  padding: 50px 20px;
+  padding: 100px 20px; /* Increased padding to make the section taller */
   text-align: center;
   margin-top: 100px; /* Add spacing to position it just below the navigation */
+  min-height: 80vh; /* Ensure the section takes up most of the viewport height */
 }
 
 .fh5co-short-stories .site-container {
@@ -838,7 +839,7 @@
 .fh5co-short-stories h2.universal-h2 {
   font-size: 2.5rem;
   color: #333;
-  margin-bottom: 30px;
+  margin-bottom: 60px; /* Increased margin for more spacing */
   text-transform: uppercase;
   letter-spacing: 2px;
   position: relative;
@@ -856,18 +857,31 @@
 .short-stories-list {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 600px; /* Center the list with a max width */
 }
 
 .short-stories-list li {
-  margin: 15px 0;
+  margin: 40px 0; /* Increased spacing between items */
+  padding: 20px; /* Add padding to each item */
+  background-color: #ffffff; /* White background for each item */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect */
+}
+
+.short-stories-list li:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
 }
 
 .short-stories-list a {
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Larger font size */
   color: #ff6f61; /* Accent color */
   text-decoration: none;
   transition: color 0.3s ease;
+  display: block; /* Make the entire list item clickable */
+  font-weight: 500; /* Slightly bolder text */
 }
 
 .short-stories-list a:hover {
